@@ -1,3 +1,13 @@
+# Shopping List Frontend
+
+This is the React frontend for the Shopping List application.
+It allows users to add, view, and manage shopping items and communicates with a Spring Boot backend.
+
+## Tech Stack
+- React
+- Axios
+- CSS
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
