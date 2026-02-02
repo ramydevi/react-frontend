@@ -1,0 +1,21 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        with:
+          ref: "c2a3b4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1"  # Full commit SHA hash for this dependency
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
