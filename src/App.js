@@ -80,7 +80,7 @@ function App() {
       <h1 className="main-heading">Manage Your Budget and Shopping List</h1>
       <p className="sub-heading">"Every rupee counts ✨"</p>
       <div className="budget-section">
-        <label className="budget-label">Enter  fixed Budget:</label>
+        <label className="budget-label">Enter fixed Budget:</label>
         <input
           type="number"
           value={totalBudget === 0 ? "" : totalBudget}

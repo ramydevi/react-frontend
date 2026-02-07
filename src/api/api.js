@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/items";
+const API_URL = "https://springboot-backend-cp71.onrender.com/api/items";
 
 export const getItems = () => axios.get(API_URL);
 export const getItem = (id) => axios.get(`${API_URL}/${id}`);
