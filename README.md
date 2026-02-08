@@ -3,6 +3,11 @@
 This is the React frontend for the Shopping List application.
 It allows users to add, view, and manage shopping items and communicates with a Spring Boot backend.
 
+## 📊 Project Presentations
+
+### Frontend
+📘 [Frontend Presentation (PDF)](Frontend_Presentation.pdf)
+
 ## Tech Stack
 - React
 - Axios
