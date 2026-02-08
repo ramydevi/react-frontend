@@ -7,8 +7,8 @@ WORKDIR /app
 # 3. Copy package files
 COPY package*.json ./
 
-# 4. Install dependencies
-RUN npm install
+# 4. Install dependencies without running lifecycle scripts
+RUN npm ci --ignore-scripts
 
 # 5. Copy all source code
 COPY . .
