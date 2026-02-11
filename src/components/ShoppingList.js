@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getItems, deleteItem } from "../api/api";
 
-function ShoppingList({ onDelete, remainingBudget }) {
+function ShoppingList({ onDelete, onUpdateQuantity, remainingBudget }) {
   const [items, setItems] = useState([]);
 
   const fetchItems = () => {
@@ -52,7 +52,43 @@ function ShoppingList({ onDelete, remainingBudget }) {
                 {item.itemName}
               </td>
               <td style={{ padding: "10px", border: "1px solid #ddd" }}>
-                {item.quantity}
+                <div style={{ display: "flex", gap: "5px", justifyContent: "center", alignItems: "center" }}>
+                  <button
+                    onClick={() => {
+                      if (item.quantity > 1) {
+                        onUpdateQuantity(item, item.quantity - 1);
+                      }
+                    }}
+                    style={{
+                      padding: "3px 8px",
+                      backgroundColor: "#ff9800",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "3px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                    }}
+                  >
+                    −
+                  </button>
+                  <span style={{ minWidth: "30px", textAlign: "center" }}>{item.quantity}</span>
+                  <button
+                    onClick={() => {
+                      onUpdateQuantity(item, item.quantity + 1);
+                    }}
+                    style={{
+                      padding: "3px 8px",
+                      backgroundColor: "#4CAF50",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "3px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
               </td>
               <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                 {item.price}

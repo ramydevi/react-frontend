@@ -1,6 +1,6 @@
 import ShoppingList from "./components/ShoppingList";
 import AddItemForm from "./components/AddItemForm";
-import { addItem, getItems, deleteItem } from "./api/api";
+import { addItem, getItems, deleteItem, updateItem } from "./api/api";
 import { useState, useEffect } from "react";
 import ProgressBar from "./components/ProgressBar";
 
@@ -58,6 +58,43 @@ function App() {
     }
   };
 
+  const handleUpdateQuantity = async (item, newQuantity) => {
+    const oldQuantity = item.quantity;
+    const quantityDifference = (newQuantity - oldQuantity) * item.price;
+    
+    if (remainingBudget - quantityDifference < 0) {
+      alert("⚠️ Budget exceeded. Cannot increase quantity.");
+      return;
+    }
+
+    try {
+      const updatedItem = {
+        itemName: item.itemName,
+        category: item.category,
+        quantity: newQuantity,
+        price: item.price,
+      };
+      await updateItem(item.id, updatedItem);
+      
+      // Fetch updated items to sync with backend
+      const response = await getItems();
+      const allItems = response.data;
+      
+      // Recalculate remaining budget based on updated items
+      let totalCost = 0;
+      allItems.forEach((it) => {
+        totalCost += it.quantity * it.price;
+      });
+      
+      const newRemainingBudget = totalBudget - totalCost;
+      setRemainingBudget(newRemainingBudget);
+      setRefresh((prev) => !prev);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update quantity");
+    }
+  };
+
   const fetchItems = () => {
     getItems()
       .then((res) => setItems(res.data))
@@ -101,6 +138,7 @@ function App() {
       <ShoppingList
         key={refresh}
         onDelete={(id, itemCost) => handleDelete(id, itemCost)}
+        onUpdateQuantity={handleUpdateQuantity}
         remainingBudget={remainingBudget}
       />
     </div>
